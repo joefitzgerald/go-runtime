@@ -193,4 +193,4 @@ ExtractAtom
 PrintVersions
 InstallPackage
 RunLinters
-RunSpecs
+#RunSpecs

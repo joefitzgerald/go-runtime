@@ -6,9 +6,9 @@ environment:
   GOPATH: c:\gopath
   GOVERSION: 1.6
 
-  matrix:
-  - ATOM_CHANNEL: stable
-  - ATOM_CHANNEL: beta
+  # matrix:
+  # - ATOM_CHANNEL: stable
+  # - ATOM_CHANNEL: beta
 
 # init:
 # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
@@ -26,6 +26,8 @@ install:
 build_script:
   - appveyor DownloadFile https://raw.githubusercontent.com/joefitzgerald/go-config/master/build-package-remote.ps1 -FileName .\build-package.ps1
   - powershell -noninteractive -noprofile -command .\build-package.ps1
+  - .\Atom\atom.exe -v
+  - .\Atom\atom.exe --test spec
 
 test: off
 deploy: off
