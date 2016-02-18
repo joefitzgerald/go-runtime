@@ -7,7 +7,7 @@ if ($env:ATOM_CHANNEL -and ($env:ATOM_CHANNEL.tolower() -ne "stable")) {
     $script:ATOM_DIRECTORY_NAME += $script:ATOM_CHANNEL.substring(0,1).toupper()
     $script:ATOM_DIRECTORY_NAME += $script:ATOM_CHANNEL.substring(1).tolower()
 }
-$script:ATOM_SCRIPT_PATH = "$PSScriptRoot\$script:ATOM_DIRECTORY_NAME\atom.exe"
+$script:ATOM_SCRIPT_PATH = "$PSScriptRoot\$script:ATOM_DIRECTORY_NAME\resources\cli\atom.cmd"
 $script:APM_SCRIPT_PATH = "$PSScriptRoot\$script:ATOM_DIRECTORY_NAME\resources\app\apm\bin\apm.cmd"
 
 
@@ -36,7 +36,7 @@ function Unzip
 
 function PrintVersions() {
     Write-Host -NoNewLine "Using Atom version: "
-    & "$ATOM_SCRIPT_PATH" -v
+    & "$ATOM_SCRIPT_PATH" -v -w
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
     }
@@ -170,7 +170,7 @@ function RunSpecs() {
         ExitWithCode -exitcode 1
     }
     Write-Host "Running specs..."
-    & "$ATOM_SCRIPT_PATH" --test spec
+    & "$ATOM_SCRIPT_PATH" -w --test spec
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Specs Failed"
         ExitWithCode -exitcode $LASTEXITCODE
