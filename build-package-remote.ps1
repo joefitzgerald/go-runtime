@@ -13,7 +13,7 @@ $script:APM_SCRIPT_PATH = "$PSScriptRoot\$script:ATOM_DIRECTORY_NAME\resources\a
 
 function DownloadAtom() {
     Write-Host "Downloading latest Atom release..."
-    $source = "https://atom.io/download/windows_zip?channel=$ATOM_CHANNEL"
+    $source = "https://atom.io/download/windows_zip?channel=$script:ATOM_CHANNEL"
     $destination = "$PSScriptRoot\atom.zip"
     appveyor DownloadFile $source -FileName $destination
     if ($LASTEXITCODE -ne 0) {
@@ -36,12 +36,12 @@ function Unzip
 
 function PrintVersions() {
     Write-Host -NoNewLine "Using Atom version: "
-    & "$ATOM_SCRIPT_PATH" -v -w
+    & "$script:ATOM_SCRIPT_PATH" -w -v
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
     }
     Write-Host "Using APM version: "
-    & "$APM_SCRIPT_PATH" -v
+    & "$script:APM_SCRIPT_PATH" -v
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
     }
@@ -49,11 +49,11 @@ function PrintVersions() {
 
 function InstallPackage() {
     Write-Host "Downloading package dependencies..."
-    & "$APM_SCRIPT_PATH" clean
+    & "$script:APM_SCRIPT_PATH" clean
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
     }
-    & "$APM_SCRIPT_PATH" install
+    & "$script:APM_SCRIPT_PATH" install
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
     }
@@ -66,7 +66,7 @@ function InstallDependencies() {
         $APM_TEST_PACKAGES = $env:APM_TEST_PACKAGES -split "\s+"
         $APM_TEST_PACKAGES | foreach {
             Write-Host "$_"
-            & "$APM_SCRIPT_PATH" install $_
+            & "$script:APM_SCRIPT_PATH" install $_
             if ($LASTEXITCODE -ne 0) {
                 ExitWithCode -exitcode $LASTEXITCODE
             }
@@ -170,7 +170,7 @@ function RunSpecs() {
         ExitWithCode -exitcode 1
     }
     Write-Host "Running specs..."
-    & "$ATOM_SCRIPT_PATH" -w --test spec
+    & "$script:APM_SCRIPT_PATH" test --path $script:ATOM_SCRIPT_PATH
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Specs Failed"
         ExitWithCode -exitcode $LASTEXITCODE
