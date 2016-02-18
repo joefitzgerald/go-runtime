@@ -16,6 +16,9 @@ function DownloadAtom() {
     $source = "https://atom.io/download/windows_zip?channel=$ATOM_CHANNEL"
     $destination = "$PSScriptRoot\atom.zip"
     Start-BitsTransfer -Source $source -Description "Downloading Atom" -Destination $destination -DisplayName $source -ErrorAction Stop
+    if ($LASTEXITCODE -ne 0) {
+        ExitWithCode -exitcode $LASTEXITCODE
+    }
 }
 
 function ExtractAtom() {
