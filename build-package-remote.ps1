@@ -165,7 +165,7 @@ function RunLinters() {
 function RunSpecs() {
     $specpath = "$PSScriptRoot\spec"
     $specpathexists = Test-Path $specpath
-    if (!$specpath) {
+    if (!$specpathexists) {
         Write-Host "Missing spec folder! Please consider adding a test suite in '.\spec'"
         ExitWithCode -exitcode 1
     }
