@@ -15,7 +15,7 @@ function DownloadAtom() {
     Write-Host "Downloading latest Atom release..."
     $source = "https://atom.io/download/windows_zip?channel=$ATOM_CHANNEL"
     $destination = "$PSScriptRoot\atom.zip"
-    Start-BitsTransfer -Source $source -Description "Downloading Atom" -Destination $destination -DisplayName $source -ErrorAction Stop
+    appveyor DownloadFile $source -FileName $destination
     if ($LASTEXITCODE -ne 0) {
         ExitWithCode -exitcode $LASTEXITCODE
     }
