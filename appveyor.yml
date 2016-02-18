@@ -22,7 +22,11 @@ install:
 
 build_script:
   - appveyor DownloadFile https://raw.githubusercontent.com/joefitzgerald/go-config/master/build-package-remote.ps1 -FileName .\build-package.ps1
-  - powershell -noninteractive -noprofile -File .\build-package.ps1
+  - powershell -noninteractive -noprofile -command .\build-package.ps1
+  - echo %ERRORLEVEL%
+  - powershell -noninteractive -noprofile -command .\build-package.ps1 > output.txt
+  - echo %ERRORLEVEL%
+  - type output.txt
 
 test: off
 deploy: off
