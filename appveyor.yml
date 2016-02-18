@@ -4,12 +4,10 @@ platform: x64
 
 environment:
   GOPATH: c:\gopath
-  GOVERSION: 1.5.1
+  GOVERSION: 1.6.0
 
 install:
-  - appveyor DownloadFile https://atom.io/download/windows?channel=beta -FileName AtomSetup.exe
-  - AtomSetup.exe /silent
-  - set PATH=%LOCALAPPDATA%\atom\bin;%GOPATH%\bin;c:\go\bin;%PATH%
+  - set PATH=%GOPATH%\bin;c:\go\bin;%PATH%
   - rmdir c:\go /s /q
   - appveyor DownloadFile https://storage.googleapis.com/golang/go%GOVERSION%.windows-amd64.zip
   - 7z x go%GOVERSION%.windows-amd64.zip -y -oC:\ > NUL
@@ -18,12 +16,8 @@ install:
   - mkdir c:\gopath
 
 build_script:
-  - cd %APPVEYOR_BUILD_FOLDER%
-  - SET PATH=%LOCALAPPDATA%\atom\bin;%GOPATH%\bin;%PATH%
-  - apm clean
-  - apm install
-  - apm install environment
-  - atom --test spec
+  - appveyor DownloadFile 'https://raw.githubusercontent.com/joefitzgerald/go-config/master/build-package-remote.ps1' -FileName build-package.ps1
+  - ps: build-package.ps1
 
 test: off
 deploy: off
