@@ -21,7 +21,7 @@ install:
 
 build_script:
   - appveyor DownloadFile https://raw.githubusercontent.com/joefitzgerald/go-config/master/build-package-remote.ps1 -FileName .\build-package.ps1
-  - ps: .\build-package.ps1
+  - powershell -noninteractive -noprofile -File .\build-package.ps1
 
 test: off
 deploy: off
