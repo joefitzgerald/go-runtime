@@ -7,7 +7,7 @@ if ($env:ATOM_CHANNEL) {
     $script:ATOM_DIRECTORY_NAME += "$script:ATOM_CHANNEL.substring(0,1).toupper()"
     $script:ATOM_DIRECTORY_NAME += "$script:ATOM_CHANNEL.substring(1).tolower()"
 }
-$script:ATOM_SCRIPT_PATH = "$PSScriptRoot\$script:ATOM_DIRECTORY_NAME\atom.exe"
+$script:ATOM_SCRIPT_PATH = "$PSScriptRoot\$script:ATOM_DIRECTORY_NAME\resources\cli\atom.cmd"
 $script:APM_SCRIPT_PATH = "$PSScriptRoot\$script:ATOM_DIRECTORY_NAME\resources\app\apm\bin\apm.cmd"
 
 
@@ -170,8 +170,9 @@ function RunSpecs() {
         ExitWithCode -exitcode 1
     }
     Write-Host "Running specs..."
-    & "$APM_SCRIPT_PATH" test .
+    & "$ATOM_SCRIPT_PATH" --test spec
     if ($LASTEXITCODE -ne 0) {
+        Write-Host "Specs Failed"
         ExitWithCode -exitcode $LASTEXITCODE
     }
 }
