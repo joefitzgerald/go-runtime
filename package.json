@@ -28,7 +28,7 @@
     "semver": "^5.1.0"
   },
   "devDependencies": {
-    "fs-extra": "^0.28.0",
+    "fs-extra": "^0.30.0",
     "eslint": "^2.5.1",
     "babel-eslint": "^6.0.0",
     "eslint-config-standard": "^5.1.0",
