@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "fs-extra": "^0.30.0",
-    "eslint": "3.2.2",
+    "eslint": "3.3.0",
     "babel-eslint": "^6.1.0",
     "eslint-config-standard": "^5.3.5",
     "eslint-plugin-standard": "^2.0.0",
