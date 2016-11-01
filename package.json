@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "standard": "^8.2.0",
-    "fs-extra": "^0.30.0",
+    "fs-extra": "^1.0.0",
     "temp": "^0.8.3"
   },
   "providedServices": {
